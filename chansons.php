@@ -1,11 +1,13 @@
 <?PHP
     class db{
-        protected string $csv = 'i_have_brain_damage.csv';
+        # nom du fichier csv a explorer
+        private string $csv = 'i_have_brain_damage.csv';
 
         function __construct()
         {
         }
 
+        # fonction permettant de lire le csv et récupéré ses data
         function read($csv){
             $file = fopen($csv, 'r');
             while (!feof($file) ) {
@@ -15,6 +17,7 @@
             return $line;
         }
 
+        # permet de récupéré les 10 dernieres lignes du csv et de le transformer en objet "song"
         function get10Last(){
             // Définir le chemin d'accès au fichier CSV
             $csv = $this->read($this->csv);
@@ -26,6 +29,7 @@
             return $songs;
         }
 
+        # permet de récupéré tout le contenue du csv et de le transformer en objet "song"
         function getAll(){
             // Définir le chemin d'accès au fichier CSV
             $csv = $this->read($this->csv);
@@ -37,27 +41,20 @@
         }
     }
 
+    # classe représentant une chanson
     class song{
-        private int $annid;
-        private string $animetitle;
-        private string $animeenglishtitle;
-        private string $songname;
-        private string $artist;
-        private string $songtype;
-        private string $length;
-        private string $difficulty;
-        private string $webm;
-        private string $mp3;
-
-        function __construct(int $annid, string $animetitle, string $animeenglishtitle, string $songname, string $artist, string $songtype, string $length, string $difficulty, string $webm, string $mp3)
+        function __construct(private int $annid, private string $animetitle, private string $animeenglishtitle, private string $songname, private string $artist, private string $songtype, private string $length, private string $difficulty, private string $webm, private string $mp3)
         {
             $this->annid = $annid;
             $this->animetitle = $animetitle;
+
+            # si l'anime n'a pas de titre anglais, utiliser son titre original
             if ($animeenglishtitle != ""){
                 $this->animeenglishtitle = $animeenglishtitle;
             } else {
                 $this->animeenglishtitle = $animetitle;
             }
+
             $this->songname = $songname;
             $this->artist = $artist;
             $this->songtype = $songtype;
