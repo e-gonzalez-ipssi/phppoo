@@ -22,39 +22,51 @@ echo '<th>webm</th>';
 echo '<th>mp3</th>';
 echo '</tr>';
 
-foreach ($songs as $song){
+$songs = match ($songs) {
+    0 => false,
+    default => $songs,
+};
+
+if($songs) {
+    foreach ($songs as $song){
+        echo '<tr>';
+            echo '<td>';
+            echo '<a href=https://www.animenewsnetwork.com/encyclopedia/anime.php?id='.$song->getAnnid().'>'.$song->getAnnid().'</a>';
+            echo '</td>';
+            echo '<td>';
+            echo $song->getAnimetitle();
+            echo '</td>';
+            echo '<td>';
+            echo $song->getAnimeenglishtitle();
+            echo '</td>';
+            echo '<td>';
+            echo $song->getSongname();
+            echo '</td>';
+            echo '<td>';
+            echo $song->getArtist();
+            echo '</td>';
+            echo '<td>';
+            echo $song->getSongtype();
+            echo '</td>';
+            echo '<td>';
+            echo $song->getLength();
+            echo '</td>';
+            echo '<td>';
+            echo $song->getDifficulty();
+            echo '</td>';
+            echo '<td>';
+            echo '<a href="'.$song->getWebm().'">'.$song->getWebm().'</a>';
+            echo '</td>';
+            echo '<td>';
+            echo '<a href="'.$song->getMp3().'">'.$song->getMp3().'</a>';
+            echo '</td>';
+        echo '</tr>';
+    }
+} else {
     echo '<tr>';
-    echo '<td>';
-    echo '<a href=https://www.animenewsnetwork.com/encyclopedia/anime.php?id='.$song->getAnnid().'>'.$song->getAnnid().'</a>';
-    echo '</td>';
-    echo '<td>';
-    echo $song->getAnimetitle();
-    echo '</td>';
-    echo '<td>';
-    echo $song->getAnimeenglishtitle();
-    echo '</td>';
-    echo '<td>';
-    echo $song->getSongname();
-    echo '</td>';
-    echo '<td>';
-    echo $song->getArtist();
-    echo '</td>';
-    echo '<td>';
-    echo $song->getSongtype();
-    echo '</td>';
-    echo '<td>';
-    echo $song->getLength();
-    echo '</td>';
-    echo '<td>';
-    echo $song->getDifficulty();
-    echo '</td>';
-    echo '<td>';
-    echo '<a href="'.$song->getWebm().'">'.$song->getWebm().'</a>';
-    echo '</td>';
-    echo '<td>';
-    echo '<a href="'.$song->getMp3().'">'.$song->getMp3().'</a>';
-    echo '</td>';
+    echo "<th>their is no songs in the database</th>";
     echo '</tr>';
 }
+
 echo '</table>';
 ?>
